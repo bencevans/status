@@ -24,8 +24,11 @@
   </div>
 <script type="text/javascript">
 $.getJSON('https://api.github.com/users/bencevans/repos', function(repos) {
-  console.log(repos);
   var table = $('table');
+  repos = _.filter(repos, function(repo) {
+    if(repo.fork) return false;
+    return true;
+  });
   repos = _.sortBy(repos, function(repo) {
     return - new Date(repo.pushed_at).getTime();
   })
