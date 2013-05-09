@@ -10,6 +10,7 @@
 <body>
 
   <div class="container">
+    <h1>OSS Status</h1>
     <table class="table table-bordered table-hover table-striped">
       <thead>
         <tr>
@@ -23,7 +24,7 @@
     </tbody>
   </div>
 <script type="text/javascript">
-$.getJSON('https://api.github.com/users/bencevans/repos', function(repos) {
+$.getJSON('https://api.github.com/users/bencevans/repos?sort=pushed', function(repos) {
   var table = $('table');
   repos = _.filter(repos, function(repo) {
     if(repo.fork) return false;
