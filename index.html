@@ -35,7 +35,10 @@ $.getJSON('https://api.github.com/users/bencevans/repos', function(repos) {
   for(var i in repos) {
     table.append([
       '<tr><td>',
-      [repos[i].full_name, repos[i].open_issues, '<img src="https://api.travis-ci.org/' + repos[i].full_name +'.png">'].join('</td><td>'),
+      [
+      '<a href="https://github.com/' + repos[i].full_name + '">' + repos[i].full_name + '</a>',
+      '<a href="https://github.com/' + repos[i].full_name + '/issues">' + repos[i].open_issues + '</a>',
+      '<a href="https://travis-ci.org/' + repos[i].full_name + '"><img src="https://api.travis-ci.org/' + repos[i].full_name +'.png"></a>'].join('</td><td>'),
       '</td></tr>'
       ].join(''))
   }
