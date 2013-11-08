@@ -24,28 +24,38 @@
     </tbody>
   </div>
 <script type="text/javascript">
-$.getJSON('https://api.github.com/users/bencevans/repos?sort=pushed', function(repos) {
-  var table = $('table');
-  repos = _.filter(repos, function(repo) {
-    if(repo.fork) return false;
-    return true;
+
+function getRepos(page) {
+
+  $.getJSON('https://api.github.com/users/bencevans/repos?sort=pushed&page=' + page, function(repos) {
+    if(repos.length === 0 || page > 5) {
+      return;
+    }
+    var table = $('table');
+    repos = _.filter(repos, function(repo) {
+      if(repo.fork) return false;
+      return true;
+    });
+    repos = _.sortBy(repos, function(repo) {
+      return - new Date(repo.pushed_at).getTime();
+    })
+    for(var i in repos) {
+      table.append([
+        '<tr><td>',
+        [
+        '<a href="https://github.com/' + repos[i].full_name + '">' + repos[i].full_name + '</a>',
+        '<a href="https://github.com/' + repos[i].full_name + '/issues">' + repos[i].open_issues + '</a>',
+        '<a href="https://travis-ci.org/' + repos[i].full_name + '"><img src="https://api.travis-ci.org/' + repos[i].full_name +'.png"></a>',
+        '<a href="https://david-dm.org/' + repos[i].full_name + '"><img src="https://david-dm.org/' + repos[i].full_name +'.png"></a>',
+        '<a href="https://coveralls.io/r/' + repos[i].full_name + '?branch=master"><img src="https://coveralls.io/repos/' + repos[i].full_name +'/badge.png?branch=master"></a>'].join('</td><td>'),
+        '</td></tr>'
+        ].join(''))
+    }
+    getRepos(page + 1);
   });
-  repos = _.sortBy(repos, function(repo) {
-    return - new Date(repo.pushed_at).getTime();
-  })
-  for(var i in repos) {
-    table.append([
-      '<tr><td>',
-      [
-      '<a href="https://github.com/' + repos[i].full_name + '">' + repos[i].full_name + '</a>',
-      '<a href="https://github.com/' + repos[i].full_name + '/issues">' + repos[i].open_issues + '</a>',
-      '<a href="https://travis-ci.org/' + repos[i].full_name + '"><img src="https://api.travis-ci.org/' + repos[i].full_name +'.png"></a>',
-      '<a href="https://david-dm.org/' + repos[i].full_name + '"><img src="https://david-dm.org/' + repos[i].full_name +'.png"></a>',
-      '<a href="https://coveralls.io/r/' + repos[i].full_name + '?branch=master"><img src="https://coveralls.io/repos/' + repos[i].full_name +'/badge.png?branch=master"></a>'].join('</td><td>'),
-      '</td></tr>'
-      ].join(''))
-  }
-});
+}
+
+getRepos(1);
 
 </script>
 
