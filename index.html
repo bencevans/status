@@ -39,7 +39,9 @@ $.getJSON('https://api.github.com/users/bencevans/repos?sort=pushed', function(r
       [
       '<a href="https://github.com/' + repos[i].full_name + '">' + repos[i].full_name + '</a>',
       '<a href="https://github.com/' + repos[i].full_name + '/issues">' + repos[i].open_issues + '</a>',
-      '<a href="https://travis-ci.org/' + repos[i].full_name + '"><img src="https://api.travis-ci.org/' + repos[i].full_name +'.png"></a>'].join('</td><td>'),
+      '<a href="https://travis-ci.org/' + repos[i].full_name + '"><img src="https://api.travis-ci.org/' + repos[i].full_name +'.png"></a>',
+      '<a href="https://david-dm.org/' + repos[i].full_name + '"><img src="https://david-dm.org/' + repos[i].full_name +'.png"></a>',
+      '<a href="https://coveralls.io/r/' + repos[i].full_name + '?branch=master"><img src="https://coveralls.io/repos/' + repos[i].full_name +'/badge.png?branch=master"></a>'].join('</td><td>'),
       '</td></tr>'
       ].join(''))
   }
