@@ -26,8 +26,10 @@
 <script type="text/javascript">
 
 function getRepos(page) {
+  
+  var username = indow.location.hash ? window.location.hash.substr(1) : 'bencevans';
 
-  $.getJSON('https://api.github.com/users/bencevans/repos?sort=pushed&page=' + page, function(repos) {
+  $.getJSON('https://api.github.com/users/' + username + '/repos?sort=pushed&page=' + page, function(repos) {
     if(repos.length === 0 || page > 5) {
       return;
     }
