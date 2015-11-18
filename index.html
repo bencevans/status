@@ -2,13 +2,13 @@
 <html>
 <head>
   <title>OSS Status</title>
-  <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script type="text/javascript" src="https://gist.github.com/raw/4369782/d3b6da93784a54647093ede3251869ca25816d12/jstable.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 </head>
 <body>
-  
+
   <a href="https://github.com/bencevans/status"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
   <div class="container">
@@ -19,6 +19,8 @@
           <th>Name</th>
           <th>Issues</th>
           <th>Travis</th>
+          <th>Dependencies</th>
+          <th>Coverage</th>
         </tr>
       </thead>
     </table>
@@ -28,7 +30,7 @@
 <script type="text/javascript">
 
 function getRepos(page) {
-  
+
   var username = window.location.hash ? window.location.hash.substr(1) : 'bencevans';
 
   $.getJSON('https://api.github.com/users/' + username + '/repos?sort=pushed&page=' + page, function(repos) {
@@ -49,9 +51,9 @@ function getRepos(page) {
         [
         '<a href="https://github.com/' + repos[i].full_name + '">' + repos[i].full_name + '</a>',
         '<a href="https://github.com/' + repos[i].full_name + '/issues">' + repos[i].open_issues + '</a>',
-        '<a href="https://travis-ci.org/' + repos[i].full_name + '"><img src="https://api.travis-ci.org/' + repos[i].full_name +'.png"></a>',
-        '<a href="https://david-dm.org/' + repos[i].full_name + '"><img src="https://david-dm.org/' + repos[i].full_name +'.png"></a>',
-        '<a href="https://coveralls.io/r/' + repos[i].full_name + '?branch=master"><img src="https://coveralls.io/repos/' + repos[i].full_name +'/badge.png?branch=master"></a>'].join('</td><td>'),
+        '<a href="https://travis-ci.org/' + repos[i].full_name + '"><img src="https://img.shields.io/travis/' + repos[i].full_name + '.svg?style=flat-square"></a>',
+        '<a href="https://david-dm.org/' + repos[i].full_name + '"><img src="https://img.shields.io/david/' + repos[i].full_name + '.svg?style=flat-square"></a>',
+        '<a href="https://coveralls.io/r/' + repos[i].full_name + '?branch=master"><img src="https://img.shields.io/coveralls/' + repos[i].full_name + '.svg?style=flat-square"></a>'].join('</td><td>'),
         '</td></tr>'
         ].join(''))
     }
